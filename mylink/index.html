@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>빡태 제주 임장기 🌴</title>
+    <title>나의 제주 여행 맵 🌴</title>
     <style>
         /* 모바일 퍼스트 & 제주도 감성 디자인 */
         body {
-            background-color: #f7f9fa; /* 깔끔한 연회색 배경 */
+            background-color: #f7f9fa;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -18,13 +18,14 @@
 
         .container {
             width: 100%;
-            max-width: 480px; /* 모바일 화면 최적화 사이즈 */
+            max-width: 480px;
             background-color: #ffffff;
             padding: 30px 20px;
             box-sizing: border-box;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            position: relative; /* 알림창 위치 기준점 */
         }
 
         /* 상단 타이틀 영역 */
@@ -32,9 +33,10 @@
             text-align: center;
             margin-bottom: 30px;
             padding: 20px 0;
-            background: linear-gradient(135deg, #ff9f43, #ffbe76); /* 따뜻한 감귤색 포인트 */
+            background: linear-gradient(135deg, #ff9f43, #ffbe76);
             border-radius: 16px;
             color: white;
+            position: relative;
         }
 
         .header h1 {
@@ -47,6 +49,30 @@
             font-size: 14px;
             margin: 0;
             opacity: 0.9;
+        }
+
+        /* 우측 상단 URL 복사 아이콘 버튼 */
+        .share-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 16px;
+            transition: background 0.2s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .share-btn:active {
+            background: rgba(255, 255, 255, 0.4);
         }
 
         /* 카테고리 제목 */
@@ -77,10 +103,9 @@
             font-size: 16px;
             font-weight: 600;
             transition: background-color 0.2s ease;
-            -webkit-tap-highlight-color: transparent; /* 모바일 터치 시 파란 잔상 제거 */
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* 모바일에서 손가락으로 누르고 있을 때 반응 */
         .link-item:active {
             background-color: #e9ecef;
             transform: scale(0.98);
@@ -90,15 +115,44 @@
             font-size: 20px;
             margin-right: 12px;
         }
+
+        /* 복사 완료 토스트 알림창 디자인 */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 51%;
+            transform: translateX(-50%);
+            background-color: rgba(44, 62, 80, 0.9);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+        }
+
+        .toast.show {
+            opacity: 1;
+            visibility: visible;
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
+    <div class="container">
         <!-- 타이틀 -->
         <div class="header">
             <h1>JEJU TRAVEL MAP 🌴</h1>
             <p>빡태 제주 여정을 위한 링크 모음</p>
+            
+            <!-- 🔗 URL 복사 버튼 추가 -->
+            <button class="share-btn" onclick="copyPageUrl()" title="주소 복사">
+                🔗
+            </button>
         </div>
 
         <!-- 카테고리 1 -->
@@ -115,11 +169,9 @@
         <!-- 카테고리 2 -->
         <div class="category-title">🏡 숙소 및 렌터카 정보</div>
         <div class="link-list">
-            <!-- 에어비앤비 공식 웹사이트로 이동 -->
             <a href="https://www.airbnb.co.kr" target="_blank" class="link-item">
                 <span class="icon">🏠</span> 에어비앤비 (숙소 확인)
             </a>
-            <!-- 모바일에서 돌하루팡 앱을 실행하거나 설치 페이지로 연동하는 딥링크 -->
             <a href="https://www.dolharupang.com" target="_blank" class="link-item">
                 <span class="icon">🚗</span> 돌하루팡 (렌터카 가격비교)
             </a>
@@ -140,7 +192,32 @@
                 <span class="icon">📌</span> 준비물 및 숙소 체크리스트
             </a>
         </div>
+
+        <!-- 복사 완료 안내 메시지 상자 -->
+        <div id="toast" class="toast">링크가 클립보드에 복사되었습니다! 👍</div>
     </div>
+
+    <!-- 주소 복사 기능을 담당하는 자바스크립트 코드 -->
+    <script>
+        function copyPageUrl() {
+            // 현재 브라우저의 주소창 URL을 통째로 가져옵니다.
+            const currentUrl = window.location.href;
+
+            // 스마트폰 및 PC의 클립보드로 복사하는 최신 명령어
+            navigator.clipboard.writeText(currentUrl).then(() => {
+                // 복사가 성공하면 안내창(Toast)을 띄웁니다.
+                const toast = document.getElementById("toast");
+                toast.classList.add("show");
+
+                // 2초 뒤에 안내창을 부드럽게 숨깁니다.
+                setTimeout(() => {
+                    toast.classList.remove("show");
+                }, 2000);
+            }).catch(err => {
+                console.error("복사 실패했습니다: ", err);
+            });
+        }
+    </script>
 
 </body>
 </html>
