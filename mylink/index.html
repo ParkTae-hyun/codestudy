@@ -3,97 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>나만의 링크 모음</title>
+    <title>빡태 제주 임장기 🌴</title>
     <style>
-        /* 배경 및 기본 폰트 설정 */
-body {
-    background-color: #f4f7f6; /* 부드러운 회색/민트빛 배경 */
-    font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
+        /* 모바일 퍼스트 & 제주도 감성 디자인 */
+        body {
+            background-color: #f7f9fa; /* 깔끔한 연회색 배경 */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
 
-/* 전체를 감싸는 프로필 카드 상자 */
-.container {
-    background-color: #ffffff;
-    width: 100%;
-    max-width: 450px; /* 모바일 화면 크기에 최적화 */
-    margin: 20px;
-    padding: 40px 20px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* 은은한 그림자 */
-    text-align: center;
-}
+        .container {
+            width: 100%;
+            max-width: 480px; /* 모바일 화면 최적화 사이즈 */
+            background-color: #ffffff;
+            padding: 30px 20px;
+            box-sizing: border-box;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-/* 프로필 이미지 동그랗게 꾸미기 */
-.profile-img {
-    width: 110px;
-    height: 110px;
-    border-radius: 50%;
-    border: 3px solid #e0e0e0;
-    margin-bottom: 15px;
-}
+        /* 상단 타이틀 영역 */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            background: linear-gradient(135deg, #ff9f43, #ffbe76); /* 따뜻한 감귤색 포인트 */
+            border-radius: 16px;
+            color: white;
+        }
 
-.profile h1 {
-    font-size: 24px;
-    color: #2c3e50;
-    margin: 0 0 8px 0;
-}
+        .header h1 {
+            font-size: 22px;
+            margin: 0 0 8px 0;
+            font-weight: 700;
+        }
 
-.profile p {
-    font-size: 14px;
-    color: #7f8c8d;
-    margin-bottom: 30px;
-}
+        .header p {
+            font-size: 14px;
+            margin: 0;
+            opacity: 0.9;
+        }
 
-/* 링크 버튼들을 아래로 나열 */
-.links {
-    display: flex;
-    flex-direction: column;
-    gap: 16px; /* 버튼 사이의 간격 */
-}
+        /* 카테고리 제목 */
+        .category-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: #84817a;
+            margin: 20px 0 10px 4px;
+        }
 
-/* 개별 링크 버튼 디자인 */
-.link-btn {
-    background-color: #ffffff;
-    color: #2c3e50;
-    text-decoration: none; /* 밑줄 제거 */
-    padding: 16px;
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    font-weight: bold;
-    font-size: 15px;
-    transition: all 0.3s ease; /* 마우스 올렸을 때 부드러운 효과 */
-}
+        /* 링크 버튼 목록 */
+        .link-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
 
-/* 마우스를 올렸을 때(Hover) 변하는 효과 */
-.link-btn:hover {
-    background-color: #2c3e50; /* 버튼 색상이 어둡게 변경 */
-    color: #ffffff;            /* 글자 색상은 흰색으로 */
-    border-color: #2c3e50;
-    transform: translateY(-3px); /* 버튼이 살짝 위로 떠오름 */
-    box-shadow: 0 5px 15px rgba(44, 62, 80, 0.2);
-}
+        /* 한 손 터치가 편한 큼직한 버튼 */
+        .link-item {
+            display: flex;
+            align-items: center;
+            background-color: #f8f9fa;
+            color: #2c3e50;
+            text-decoration: none;
+            padding: 18px 20px;
+            border-radius: 12px;
+            border: 1px solid #edeef0;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+            -webkit-tap-highlight-color: transparent; /* 모바일 터치 시 파란 잔상 제거 */
+        }
+
+        /* 모바일에서 손가락으로 누르고 있을 때 반응 */
+        .link-item:active {
+            background-color: #e9ecef;
+            transform: scale(0.98);
+        }
+
+        .icon {
+            font-size: 20px;
+            margin-right: 12px;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div class="profile">
-            <img src="https://via.placeholder.com/100" alt="프로필 사진" class="profile-img">
-            <h1>재야의 개발자</h1>
-            <p>꾸준히 성장하는 코딩 새내기의 공간입니다. 🚀</p>
+        <!-- 타이틀 -->
+        <div class="header">
+            <h1>JEJU TRAVEL MAP 🍊</h1>
+            <p>즐겁고 안전한 제주 여정을 위한 링크 모음</p>
         </div>
 
-        <div class="links">
-            <a href="https://github.com" target="_blank" class="link-btn">💻 나의 GitHub 방문하기</a>
-            <a href="https://velog.io" target="_blank" class="link-btn">✍️ 기술 블로그 구경가기</a>
-            <a href="https://www.google.com" target="_blank" class="link-btn">📊 관심 있는 투자 포트폴리오</a>
-            <a href="mailto:your-email@example.com" class="link-btn">✉️ 연락하기 (Email)</a>
+        <!-- 카테고리 1 -->
+        <div class="category-title">📍 코스 및 지도 정보</div>
+        <div class="link-list">
+            <!-- href="" 안에 실제 유용한 지도나 올레길 사이트 주소를 넣으시면 됩니다 -->
+            <a href="https://www.jejuolle.org" target="_blank" class="link-item">
+                <span class="icon">🚶‍♂️</span> 제주올레 공식 홈페이지 (코스 안내)
+            </a>
+            <a href="https://map.kakao.com" target="_blank" class="link-item">
+                <span class="icon">🗺️</span> 카카오맵 바로가기
+            </a>
+        </div>
+
+        <!-- 카테고리 2 -->
+        <div class="category-title">🌤️ 실시간 날씨 및 교통</div>
+        <div class="link-list">
+            <a href="https://m.weather.naver.com" target="_blank" class="link-item">
+                <span class="icon">🌦️</span> 네이버 날씨 (제주 지역)
+            </a>
+            <a href="https://bus.jeju.go.kr" target="_blank" class="link-item">
+                <span class="icon">🚌</span> 제주 버스정보 시스템 (모바일)
+            </a>
+        </div>
+
+        <!-- 카테고리 3 -->
+        <div class="category-title">📝 나의 여행 메모</div>
+        <div class="link-list">
+            <a href="https://keep.google.com" target="_blank" class="link-item">
+                <span class="icon">📌</span> 준비물 및 숙소 체크리스트
+            </a>
         </div>
     </div>
 
